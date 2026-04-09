@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINK GAMING</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FF2D8A;
+    --pink-light: #FFB3D1;
+    --pink-pale: #FFE0EE;
+    --pink-dark: #C4006A;
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* GRAIN OVERLAY */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    border-bottom: 1px solid rgba(255,45,138,0.3);
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--pink);
+    letter-spacing: 0.2em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--pink); }
+
+  .nav-cta {
+    background: var(--pink);
+    color: var(--black) !important;
+    padding: 0.5rem 1.2rem;
+    font-weight: 700 !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--pink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 2rem 3rem;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(120px, 22vw, 320px);
+    color: rgba(0,0,0,0.08);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .hero-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(100px, 20vw, 290px);
+    line-height: 0.85;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    animation: heroIn 0.8s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  @keyframes heroIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.6);
+    margin-top: 1rem;
+    position: relative;
+    z-index: 2;
+    animation: heroIn 0.8s 0.15s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    animation: heroIn 0.8s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 2.2rem;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .btn-pill:hover { transform: translateY(-2px); }
+  .btn-pill:active { transform: translateY(0) scale(0.98); }
+
+  .btn-dark {
+    background: var(--black);
+    color: var(--pink);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+  }
+
+  .btn-pale {
+    background: var(--pink-pale);
+    color: var(--black);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  }
+
+  .hero-card {
+    margin-top: 2.5rem;
+    background: rgba(0,0,0,0.12);
+    border-radius: 1.5rem;
+    padding: 1.5rem 2rem;
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+    animation: heroIn 0.8s 0.45s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  .hero-trust {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .trust-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--black);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .trust-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.7);
+    text-align: center;
+    max-width: 80px;
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--black);
+    border-top: 1px solid rgba(255,45,138,0.4);
+    border-bottom: 1px solid rgba(255,45,138,0.4);
+    overflow: hidden;
+    padding: 0.7rem 0;
+  }
+
+  .ticker-inner {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 18s linear infinite;
+  }
+
+  .ticker-inner span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--pink);
+    padding: 0 1.5rem;
+  }
+
+  .ticker-inner .dot {
+    color: rgba(255,255,255,0.3);
+    padding: 0 0.5rem;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTION HEADERS */
+  section { padding: 5rem 2.5rem; }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  /* TARIFS UC */
+  .tarifs-section {
+    background: var(--black);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+  }
+
+  .tarifs-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tarifs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(255,45,138,0.2);
+    border: 1px solid rgba(255,45,138,0.2);
+  }
+
+  .uc-card {
+    background: var(--black);
+    padding: 2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .uc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--pink);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.2s;
+  }
+
+  .uc-card:hover { background: rgba(255,45,138,0.06); }
+  .uc-card:hover::before { transform: scaleY(1); }
+
+  /* Prime Plus cards — no pink hover, gold border-left only on hold/active */
+  .uc-card.prime-plus::before { background: #D4A017; }
+  .uc-card.prime-plus:hover { background: rgba(212,160,23,0.05); }
+  .uc-card.prime-plus:hover::before { transform: scaleY(0); }
+  .uc-card.prime-plus:active { background: rgba(212,160,23,0.09); }
+  .uc-card.prime-plus:active::before { transform: scaleY(1); }
+  .uc-card.prime-plus.holding { background: rgba(212,160,23,0.09); }
+  .uc-card.prime-plus.holding::before { transform: scaleY(1); }
+  .uc-card.prime-plus.holding .uc-btn,
+  .uc-card.prime-plus:active .uc-btn {
+    background: rgba(212,160,23,0.15);
+    border-color: #D4A017;
+    color: #F5D76E;
+  }
+
+  /* Gold modal theme for Prime Plus */
+  .modal-box.gold-theme {
+    border-color: #D4A017;
+    background: linear-gradient(160deg, #0d0a00 0%, #0a0a0a 100%);
+  }
+  .modal-box.gold-theme .modal-uc-amount { color: #F5D76E; }
+  .modal-box.gold-theme .modal-price { color: #F5D76E; }
+  .modal-box.gold-theme .form-input {
+    border-color: rgba(212,160,23,0.35);
+  }
+  .modal-box.gold-theme .form-input:focus {
+    border-color: #D4A017;
+  }
+  .modal-box.gold-theme .modal-close:hover { color: #F5D76E; }
+  .modal-box.gold-theme .whatsapp-btn {
+    background: #25D366;
+  }
+
+  .uc-card.featured {
+    background: var(--pink);
+  }
+
+  .uc-card.featured::before { background: var(--black); }
+
+  .uc-card.featured .uc-amount,
+  .uc-card.featured .uc-price,
+  .uc-card.featured .uc-unit,
+  .uc-card.featured .uc-save {
+    color: var(--black);
+  }
+
+  .uc-card.featured .uc-badge {
+    background: var(--black);
+    color: var(--pink);
+  }
+
+  .uc-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--pink);
+    color: var(--black);
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-weight: 700;
+    width: fit-content;
+    height: 22px;
+  }
+
+  .uc-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .uc-amount {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .uc-unit {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.3rem;
+  }
+
+  .uc-card.featured .uc-unit { color: rgba(0,0,0,0.5); }
+
+  .uc-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--pink);
+    letter-spacing: 0.05em;
+  }
+
+  .uc-card.featured .uc-price { color: var(--black); }
+
+  .uc-save {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+  }
+
+  .uc-btn {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,45,138,0.4);
+    background: transparent;
+    color: var(--pink);
+    cursor: pointer;
+    transition: all 0.15s;
+    border-radius: 0;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  .uc-btn:hover {
+    background: var(--pink);
+    color: var(--black);
+    border-color: var(--pink);
+  }
+
+  .uc-card.featured .uc-btn {
+    border-color: rgba(0,0,0,0.4);
+    color: var(--black);
+  }
+
+  .uc-card.featured .uc-btn:hover {
+    background: var(--black);
+    color: var(--pink);
+  }
+
+  /* HOW IT WORKS */
+  .how-section {
+    background: #0f0f0f;
+    border-top: 1px solid rgba(255,45,138,0.15);
+  }
+
+  .how-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    margin-top: 3rem;
+    border: 1px solid rgba(255,45,138,0.2);
+  }
+
+  .step {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid rgba(255,45,138,0.2);
+    position: relative;
+  }
+
+  .step:last-child { border-right: none; }
+
+  .step-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: rgba(255,45,138,0.12);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .step-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .step-icon svg { width: 22px; height: 22px; }
+
+  .step-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-desc {
+    font-size: 0.7rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.02em;
+  }
+
+  /* PAYMENT */
+  .pay-section {
+    background: var(--black);
+    border-top: 1px solid rgba(255,45,138,0.15);
+  }
+
+  .pay-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .pay-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .pay-card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(255,45,138,0.25);
+    transition: border-color 0.2s;
+  }
+
+  .pay-card:hover { border-color: var(--pink); }
+
+  .pay-logo {
+    width: 52px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-family: 'Anton', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .mvola { background: #E8003D; color: white; }
+  .orange { background: #FF6200; color: white; }
+
+  .pay-info h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .pay-info p {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* ORDER FORM */
+  .order-box {
+    background: rgba(255,45,138,0.06);
+    border: 1px solid rgba(255,45,138,0.3);
+    padding: 2.5rem;
+  }
+
+  .order-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    color: var(--pink);
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input, .form-select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,45,138,0.3);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    padding: 0.8rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+
+  .form-select option { background: #1a1a1a; }
+
+  /* Style de base harmonisé avec tes inputs */
+.form-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04); /* Transparence légère */
+  border: 1px solid rgba(255, 45, 138, 0.3); /* Bordure rose subtile */
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  padding: 0.8rem 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+  border-radius: 0; /* Garde l'aspect angulaire */
+  cursor: pointer;
+
+  /* Supprime la flèche par défaut du navigateur */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Ajout d'une flèche personnalisée (SVG Rose) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23FF2D8A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  padding-right: 2.5rem;
+}
+
+/* État au survol et focus */
+.form-select:hover {
+  border-color: rgba(255, 45, 138, 0.6);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.form-select:focus {
+  border-color: var(--pink);
+  background-color: rgba(255, 45, 138, 0.08);
+  box-shadow: 0 0 15px rgba(255, 45, 138, 0.1);
+}
+
+/* Style des options pour le menu déroulant */
+.form-select option {
+  background-color: #0A0A0A; /* Fond noir profond */
+  color: var(--white);
+  padding: 1rem;
+}
+
+
+  .form-input:focus, .form-select:focus {
+    border-color: var(--pink);
+  }
+
+  .form-input::placeholder { color: rgba(255,255,255,0.25); }
+
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--pink);
+    color: var(--black);
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 0.5rem;
+  }
+
+  .submit-btn:hover { background: var(--pink-dark); }
+  .submit-btn:active { transform: scale(0.99); }
+
+  /* TRUST STRIP */
+  .trust-strip {
+    background: var(--pink);
+    padding: 3rem 2.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .trust-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.8rem;
+    line-height: 1;
+    color: var(--black);
+  }
+
+  .trust-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.6);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #050505;
+    border-top: 1px solid rgba(255,45,138,0.2);
+    padding: 3rem 2.5rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem;
+    color: var(--pink);
+    letter-spacing: -0.01em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--pink); }
+
+  .footer-copy {
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.1em;
+    text-align: center;
+    width: 100%;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 1.5rem;
+  }
+
+  /* MOBILE NAV TOGGLE */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.3rem;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--pink);
+    transition: transform 0.2s;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    background: var(--black);
+    border: 1px solid var(--pink);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    animation: modalIn 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--pink); }
+
+  .modal-uc-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .modal-uc-amount {
+    font-family: 'Anton', sans-serif;
+    font-size: 4rem;
+    color: var(--pink);
+    line-height: 1;
+  }
+
+  .modal-uc-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .modal-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .whatsapp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    width: 100%;
+    padding: 1rem;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .whatsapp-btn:hover { background: #1da851; }
+
+
+  /* Style harmonisé pour le menu de sélection */
+.form-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 45, 138, 0.3);
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  padding: 0.8rem 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  
+  /* Supprime l'apparence standard du navigateur */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  border-radius: 0;
+  cursor: pointer;
+
+  /* Ajout d'une flèche personnalisée en SVG pour le style PINK */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23FF2D8A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  padding-right: 2.5rem; /* Espace pour la flèche */
+}
+
+/* Effet au survol et focus */
+.form-select:focus {
+  border-color: var(--pink);
+  background-color: rgba(255, 45, 138, 0.08);
+}
+
+/* Style des options (limité par les navigateurs, mais améliore le contraste) */
+.form-select option {
+  background: #0A0A0A; /* Fond noir pour les options */
+  color: var(--white);
+  padding: 10px;
+}
+
+  /* RESPONSIVE */
+/* Navigation Mobile */
+  @media (max-width: 768px) {
+    nav { 
+      padding: 0.8rem 1.2rem; 
+    }
+
+    .nav-links { 
+      display: none; /* Masqué par défaut, géré par JS */
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 10, 0.98);
+      padding: 1.5rem;
+      gap: 1.5rem;
+      border-bottom: 1px solid var(--pink);
+      backdrop-filter: blur(15px);
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
+    .nav-toggle { 
+      display: flex; 
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: 8rem 1.2rem 4rem;
+    }
+    .hero-title { 
+      font-size: clamp(60px, 18vw, 120px); 
+    }
+    .hero-bg-text {
+        font-size: 180px;
+    }
+    .hero-btns {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn-pill {
+        justify-content: center;
+    }
+
+    /* Grilles de Tarifs */
+    .tarifs-grid { 
+      grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur tablette */
+    }
+
+    /* Section Comment ça marche */
+    .steps-grid { 
+      grid-template-columns: 1fr; /* 1 colonne sur mobile/tablette pour la lisibilité */
+    }
+    .step { 
+      border-right: none; 
+      border-bottom: 1px solid rgba(255,45,138,0.2); 
+    }
+
+    /* Paiement & Formulaire */
+    .pay-inner { 
+      grid-template-columns: 1fr; 
+      gap: 3rem; 
+    }
+    .order-box {
+        padding: 1.5rem;
+    }
+
+    /* Footer */
+    .footer-inner { 
+      flex-direction: column; 
+      align-items: center;
+      text-align: center;
+    }
+    .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+  }
+
+  @media (max-width: 480px) {
+    /* Mobile Portrait */
+    .tarifs-grid { 
+      grid-template-columns: 1fr; /* 1 seule colonne sur petit mobile */
+    }
+    .hero-title {
+        font-size: 70px;
+    }
+    .uc-amount {
+        font-size: 2.8rem;
+    }
+    .trust-strip { 
+      grid-template-columns: repeat(2, 1fr);
+      display: grid;
+      gap: 1.5rem; 
+    }
+    .modal-box {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    .modal-uc-amount {
+        font-size: 3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tarifs-grid { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; align-items: center; }
+    .hero-trust { flex-direction: column; align-items: center; }
+  }
+
+  /* SCROLL ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+  .stagger-5 { transition-delay: 0.5s; }
+  .stagger-6 { transition-delay: 0.6s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">PINK<span style="color:rgba(255,255,255,0.3)">.</span>GAMING</a>
+  <ul class="nav-links">
+    <li><a href="#tarifs">Tarifs UC</a></li>
+    <li><a href="#prime">Abonnements</a></li>
+    <li><a href="#comment">Comment ça marche</a></li>
+    <li><a href="#paiement">Paiement</a></li>
+    <li><a href="#commander" class="nav-cta">Commander</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-text" aria-hidden="true">UC</div>
+  <div class="hero-title">PINK</div>
+  <p class="hero-subtitle">Gaming & store&nbsp;·&nbsp; PUBG Mobile UC &nbsp;·&nbsp; Antananarivo</p>
+  <div class="hero-btns">
+    <a href="#tarifs" class="btn-pill btn-dark">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      Achat UC
+    </a>
+    <a href="#commander" class="btn-pill btn-pale">
+      Boutique →
+    </a>
+  </div>
+  <div class="hero-card">
+    <div class="hero-trust">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="#FF2D8A" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="trust-label">Service sécurisé</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="#FF2D8A" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <span class="trust-label">Livraison rapide</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="#FF2D8A" stroke-width="2" viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+        </div>
+        <span class="trust-label">Prix abordables</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="#FF2D8A" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+        </div>
+        <span class="trust-label">Support WhatsApp</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner">
+    <span>PUBG MOBILE UC</span><span class="dot">✦</span>
+    <span>MVOLA ACCEPTÉ</span><span class="dot">✦</span>
+    <span>ORANGE MONEY ACCEPTÉ</span><span class="dot">✦</span>
+    <span>LIVRAISON INSTANTANÉE</span><span class="dot">✦</span>
+    <span>SERVICE 100% FIABLE</span><span class="dot">✦</span>
+    <span>MAGIC GAME STORE</span><span class="dot">✦</span>
+    <span>PUBG MOBILE UC</span><span class="dot">✦</span>
+    <span>MVOLA ACCEPTÉ</span><span class="dot">✦</span>
+    <span>ORANGE MONEY ACCEPTÉ</span><span class="dot">✦</span>
+    <span>LIVRAISON INSTANTANÉE</span><span class="dot">✦</span>
+    <span>SERVICE 100% FIABLE</span><span class="dot">✦</span>
+    <span>MAGIC GAME STORE</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- TARIFS -->
+<div id="tarifs">
+  <div class="tarifs-section">
+    <div class="tarifs-header">
+      <div>
+        <p class="section-label">Tarifs UC</p>
+        <h2 class="section-title fade-up">CHOISISSEZ<br>VOTRE PACK</h2>
+      </div>
+      <p style="font-size:0.7rem;color:rgba(255,255,255,0.35);letter-spacing:0.05em;max-width:220px;line-height:1.8;">
+        Tous les prix sont en Ariary malgache (Ar). Paiement via MVola ou Orange Money.
+      </p>
+    </div>
+
+    <div class="tarifs-grid">
+      <!-- 30 UC -->
+      <div class="uc-card fade-up stagger-1" onclick="openModal('30 UC','3 000 Ar','30')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount">30</div>
+            <div class="uc-unit">Unknown Cash</div>
+          </div>
+        </div>
+        <div class="uc-price">3 000 Ar</div>
+        <div class="uc-save">≈ 100 Ar / UC</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openModal('30 UC','3 000 Ar','30')">Commander →</a>
+      </div>
+
+      <!-- 60 UC -->
+      <div class="uc-card fade-up stagger-2" onclick="openModal('60 UC','5 000 Ar','60')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount">60</div>
+            <div class="uc-unit">Unknown Cash</div>
+          </div>
+        </div>
+        <div class="uc-price">5 000 Ar</div>
+        <div class="uc-save">≈ 83 Ar / UC</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openModal('60 UC','5 000 Ar','60')">Commander →</a>
+      </div>
+
+      <!-- 325 UC -->
+      <div class="uc-card fade-up stagger-3" onclick="openModal('325 UC','21 000 Ar','325')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount">325</div>
+            <div class="uc-unit">Unknown Cash</div>
+          </div>
+        </div>
+        <div class="uc-price">21 000 Ar</div>
+        <div class="uc-save">≈ 64 Ar / UC</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openModal('325 UC','21 000 Ar','325')">Commander →</a>
+      </div>
+
+      <!-- 660 UC - FEATURED -->
+      <div class="uc-card featured fade-up stagger-4" onclick="openModal('660 UC','41 000 Ar','660')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount">660</div>
+            <div class="uc-unit">Unknown Cash</div>
+          </div>
+          <div class="uc-badge">⭐ Populaire</div>
+        </div>
+        <div class="uc-price">41 000 Ar</div>
+        <div class="uc-save">≈ 62 Ar / UC</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openModal('660 UC','41 000 Ar','660')">Commander →</a>
+      </div>
+
+      <!-- 1800 UC -->
+      <div class="uc-card fade-up stagger-5" onclick="openModal('1 800 UC','100 000 Ar','1800')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount">1 800</div>
+            <div class="uc-unit">Unknown Cash</div>
+          </div>
+          <div class="uc-badge">Meilleur rapport</div>
+        </div>
+        <div class="uc-price">100 000 Ar</div>
+        <div class="uc-save">≈ 55 Ar / UC</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openModal('1 800 UC','100 000 Ar','1800')">Commander →</a>
+      </div>
+
+      <!-- 16200 UC -->
+      <div class="uc-card fade-up stagger-6" onclick="openModal('16 200 UC','793 000 Ar','16200')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.5rem;">16 200</div>
+            <div class="uc-unit">Unknown Cash</div>
+          </div>
+          <div class="uc-badge">MEGA PACK</div>
+        </div>
+        <div class="uc-price">793 000 Ar</div>
+        <div class="uc-save">≈ 48 Ar / UC — Meilleur prix</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openModal('16 200 UC','793 000 Ar','16200')">Commander →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ABONNEMENTS PRIME -->
+<div id="prime">
+  <div class="tarifs-section">
+    <div class="tarifs-header">
+      <div>
+        <p class="section-label">Tarifs d'abonnement</p>
+        <h2 class="section-title fade-up">PRIME &amp;<br>PRIME PLUS</h2>
+      </div>
+      <p style="font-size:0.7rem;color:rgba(255,255,255,0.35);letter-spacing:0.05em;max-width:260px;line-height:1.8;">
+        UC réclamables après activation. Paiement via MVola ou Orange Money.
+      </p>
+    </div>
+
+    <!-- PRIME -->
+    <p class="section-label" style="margin-bottom:1rem;">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:6px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Prime — 3 UC / jour
+    </p>
+    <div class="tarifs-grid" style="margin-bottom:2.5rem;">
+
+      <!-- Prime 1 mois -->
+      <div class="uc-card fade-up stagger-1" onclick="openSubModal('Prime — 1 mois','6 000 Ar','60 UC à réclamer + 3 UC/jour')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.2rem;">1 mois</div>
+            <div class="uc-unit">Prime</div>
+          </div>
+          <div class="uc-badge">Prime</div>
+        </div>
+        <div class="uc-price">6 000 Ar</div>
+        <div class="uc-save">60 UC à réclamer · 3 UC/jour</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openSubModal('Prime — 1 mois','6 000 Ar','60 UC à réclamer + 3 UC/jour')">Commander →</a>
+      </div>
+
+      <!-- Prime 3 mois -->
+      <div class="uc-card fade-up stagger-2" onclick="openSubModal('Prime — 3 mois','17 000 Ar','180 UC à réclamer + 3 UC/jour')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.2rem;">3 mois</div>
+            <div class="uc-unit">Prime</div>
+          </div>
+          <div class="uc-badge">Prime</div>
+        </div>
+        <div class="uc-price">17 000 Ar</div>
+        <div class="uc-save">180 UC à réclamer · 3 UC/jour</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openSubModal('Prime — 3 mois','17 000 Ar','180 UC à réclamer + 3 UC/jour')">Commander →</a>
+      </div>
+
+      <!-- Prime 6 mois -->
+      <div class="uc-card fade-up stagger-3" onclick="openSubModal('Prime — 6 mois','28 000 Ar','360 UC à réclamer + 3 UC/jour')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.2rem;">6 mois</div>
+            <div class="uc-unit">Prime</div>
+          </div>
+          <div class="uc-badge">Prime</div>
+        </div>
+        <div class="uc-price">28 000 Ar</div>
+        <div class="uc-save">360 UC à réclamer · 3 UC/jour</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openSubModal('Prime — 6 mois','28 000 Ar','360 UC à réclamer + 3 UC/jour')">Commander →</a>
+      </div>
+
+      <!-- Prime 12 mois -->
+      <div class="uc-card featured fade-up stagger-4" onclick="openSubModal('Prime — 12 mois','50 000 Ar','720 UC à réclamer + 3 UC/jour')">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.2rem;">12 mois</div>
+            <div class="uc-unit">Prime</div>
+          </div>
+          <div class="uc-badge">Meilleur prix</div>
+        </div>
+        <div class="uc-price">50 000 Ar</div>
+        <div class="uc-save">720 UC à réclamer · 3 UC/jour</div>
+        <a class="uc-btn" href="#" onclick="event.preventDefault();openSubModal('Prime — 12 mois','50 000 Ar','720 UC à réclamer + 3 UC/jour')">Commander →</a>
+      </div>
+    </div>
+
+    <!-- PRIME PLUS -->
+    <p class="section-label" style="margin-bottom:1rem;color:#F5D76E;">
+      <svg width="12" height="12" fill="#F5D76E" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:6px"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg>
+      Prime Plus — 8 UC / jour
+    </p>
+    <div class="tarifs-grid" style="border-color:rgba(212,160,23,0.3);background:rgba(212,160,23,0.15);">
+
+      <!-- Prime Plus 1 mois -->
+      <div class="uc-card prime-plus fade-up stagger-1" onclick="openSubModal('Prime Plus — 1 mois','42 000 Ar','660 UC à réclamer + 8 UC/jour',true)">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.2rem;color:#F5D76E;">1 mois</div>
+            <div class="uc-unit">Prime Plus</div>
+          </div>
+          <div class="uc-badge" style="background:#D4A017;color:#3a2800;">Plus</div>
+        </div>
+        <div class="uc-price" style="color:#F5D76E;">42 000 Ar</div>
+        <div class="uc-save">660 UC à réclamer · 8 UC/jour</div>
+        <a class="uc-btn" href="#" style="border-color:rgba(212,160,23,0.4);color:#F5D76E;" onclick="event.preventDefault();openSubModal('Prime Plus — 1 mois','42 000 Ar','660 UC à réclamer + 8 UC/jour',true)">Commander →</a>
+      </div>
+
+      <!-- Prime Plus 3 mois -->
+      <div class="uc-card prime-plus fade-up stagger-2" onclick="openSubModal('Prime Plus — 3 mois','188 000 Ar','1 980 UC à réclamer + 8 UC/jour',true)">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.2rem;color:#F5D76E;">3 mois</div>
+            <div class="uc-unit">Prime Plus</div>
+          </div>
+          <div class="uc-badge" style="background:#D4A017;color:#3a2800;">Plus</div>
+        </div>
+        <div class="uc-price" style="color:#F5D76E;">188 000 Ar</div>
+        <div class="uc-save">1 980 UC à réclamer · 8 UC/jour</div>
+        <a class="uc-btn" href="#" style="border-color:rgba(212,160,23,0.4);color:#F5D76E;" onclick="event.preventDefault();openSubModal('Prime Plus — 3 mois','188 000 Ar','1 980 UC à réclamer + 8 UC/jour',true)">Commander →</a>
+      </div>
+
+      <!-- Prime Plus 6 mois -->
+      <div class="uc-card prime-plus fade-up stagger-3" onclick="openSubModal('Prime Plus — 6 mois','229 000 Ar','3 960 UC à réclamer + 8 UC/jour',true)">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.2rem;color:#F5D76E;">6 mois</div>
+            <div class="uc-unit">Prime Plus</div>
+          </div>
+          <div class="uc-badge" style="background:#D4A017;color:#3a2800;">Plus</div>
+        </div>
+        <div class="uc-price" style="color:#F5D76E;">229 000 Ar</div>
+        <div class="uc-save">3 960 UC à réclamer · 8 UC/jour</div>
+        <a class="uc-btn" href="#" style="border-color:rgba(212,160,23,0.4);color:#F5D76E;" onclick="event.preventDefault();openSubModal('Prime Plus — 6 mois','229 000 Ar','3 960 UC à réclamer + 8 UC/jour',true)">Commander →</a>
+      </div>
+
+      <!-- Prime Plus 12 mois -->
+      <div class="uc-card prime-plus fade-up stagger-4" style="background:rgba(212,160,23,0.08);" onclick="openSubModal('Prime Plus — 12 mois','448 000 Ar','7 920 UC à réclamer + 8 UC/jour',true)">
+        <div class="uc-top">
+          <div>
+            <div class="uc-amount" style="font-size:2.2rem;color:#F5D76E;">12 mois</div>
+            <div class="uc-unit">Prime Plus</div>
+          </div>
+          <div class="uc-badge" style="background:#D4A017;color:#3a2800;">Meilleur prix</div>
+        </div>
+        <div class="uc-price" style="color:#F5D76E;">448 000 Ar</div>
+        <div class="uc-save">7 920 UC à réclamer · 8 UC/jour</div>
+        <a class="uc-btn" href="#" style="border-color:rgba(212,160,23,0.4);color:#F5D76E;" onclick="event.preventDefault();openSubModal('Prime Plus — 12 mois','448 000 Ar','7 920 UC à réclamer + 8 UC/jour',true)">Commander →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="comment">
+  <div class="how-inner">
+    <p class="section-label">Processus</p>
+    <h2 class="section-title fade-up">COMMENT ÇA<br>MARCHE ?</h2>
+    <div class="steps-grid">
+      <div class="step fade-up stagger-1">
+        <span class="step-num" aria-hidden="true">01</span>
+        <div class="step-icon">
+          <svg fill="none" stroke="#0A0A0A" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <h3 class="step-title">Choisir un pack</h3>
+        <p class="step-desc">Sélectionnez le nombre d'UC souhaité parmi nos offres ci-dessus.</p>
+      </div>
+      <div class="step fade-up stagger-2">
+        <span class="step-num" aria-hidden="true">02</span>
+        <div class="step-icon">
+          <svg fill="none" stroke="#0A0A0A" stroke-width="2.5" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+        </div>
+        <h3 class="step-title">Donner votre ID</h3>
+        <p class="step-desc">Partagez votre identifiant PUBG Mobile (Player ID) via WhatsApp.</p>
+      </div>
+      <div class="step fade-up stagger-3">
+        <span class="step-num" aria-hidden="true">03</span>
+        <div class="step-icon">
+          <svg fill="none" stroke="#0A0A0A" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="step-title">Payer</h3>
+        <p class="step-desc">Effectuez le paiement via MVola ou Orange Money au numéro indiqué.</p>
+      </div>
+      <div class="step fade-up stagger-4">
+        <span class="step-num" aria-hidden="true">04</span>
+        <div class="step-icon">
+          <svg fill="none" stroke="#0A0A0A" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="step-title">Réception</h3>
+        <p class="step-desc">Les UC sont crédités sur votre compte PUBG Mobile en quelques minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-block">
+    <span class="trust-num">500+</span>
+    <span class="trust-text">Clients satisfaits</span>
+  </div>
+  <div class="trust-block">
+    <span class="trust-num">5 min</span>
+    <span class="trust-text">Délai moyen</span>
+  </div>
+  <div class="trust-block">
+    <span class="trust-num">100%</span>
+    <span class="trust-text">Sécurisé</span>
+  </div>
+  <div class="trust-block">
+    <span class="trust-num">24/7</span>
+    <span class="trust-text">Support actif</span>
+  </div>
+</div>
+
+<!-- PAYMENT & ORDER -->
+<section class="pay-section" id="paiement">
+  <div class="pay-inner">
+    <div>
+      <p class="section-label">Modes de paiement</p>
+      <h2 class="section-title fade-up">PAIEMENTS<br>ACCEPTÉS</h2>
+      <div class="pay-methods">
+        <div class="pay-card fade-up stagger-1">
+          <div class="pay-logo mvola">MVola</div>
+          <div class="pay-info">
+            <h3>MVola</h3>
+            <p>Telma Madagascar — Paiement mobile</p>
+          </div>
+        </div>
+        <div class="pay-card fade-up stagger-2">
+          <div class="pay-logo orange">OM</div>
+          <div class="pay-info">
+            <h3>Orange Money</h3>
+            <p>Orange Madagascar — Paiement mobile</p>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:1.5rem;line-height:1.8;letter-spacing:0.05em;">
+        Le numéro de paiement vous sera communiqué<br>après confirmation de votre commande via WhatsApp.
+      </p>
+    </div>
+
+    <!-- ORDER FORM -->
+      <div id="commander">
+      <div class="order-box fade-up">
+        <p class="order-title">Commander maintenant</p>
+        <div class="form-group">
+          <label class="form-label" for="pack">Pack UC ou Abonnement</label>
+          <select class="form-select" id="pack">
+            <option value="">— Sélectionner —</option>
+            <optgroup label="Unknown Cash (UC)">
+              <option value="30uc">30 UC — 3 000 Ar</option>
+              <option value="60uc">60 UC — 5 000 Ar</option>
+              <option value="325uc">325 UC — 21 000 Ar</option>
+              <option value="660uc">660 UC — 41 000 Ar</option>
+              <option value="1800uc">1 800 UC — 100 000 Ar</option>
+              <option value="16200uc">16 200 UC — 793 000 Ar</option>
+            </optgroup>
+            <optgroup label="Prime">
+              <option value="prime1m">Prime 1 mois — 6 000 Ar</option>
+              <option value="prime3m">Prime 3 mois — 17 000 Ar</option>
+              <option value="prime6m">Prime 6 mois — 28 000 Ar</option>
+              <option value="prime12m">Prime 12 mois — 50 000 Ar</option>
+            </optgroup>
+            <optgroup label="Prime Plus">
+              <option value="plus1m">Prime Plus 1 mois — 42 000 Ar</option>
+              <option value="plus3m">Prime Plus 3 mois — 188 000 Ar</option>
+              <option value="plus6m">Prime Plus 6 mois — 229 000 Ar</option>
+              <option value="plus12m">Prime Plus 12 mois — 448 000 Ar</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="whatsapp">Pseudo PUBG Mobile</label>
+          <input class="form-input" type="text" id="whatsapp" placeholder="Ex: SnipeKing_MG">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pubgid">Player ID PUBG Mobile</label>
+          <input class="form-input" type="text" id="pubgid" placeholder="Ex: 5123456789" inputmode="numeric">
+        </div>
+        <button class="submit-btn" onclick="submitOrder()">ENVOYER LA COMMANDE →</button>
+        <p style="font-size:0.6rem;color:rgba(255,255,255,0.2);margin-top:1rem;letter-spacing:0.08em;text-align:center;">
+          Votre commande sera traitée via WhatsApp dans les plus brefs délais.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">PINK</div>
+      <p style="font-size:0.6rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;margin-top:0.3rem;">Magic Game Store · Tacos Gaming</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#comment">Comment ça marche</a></li>
+      <li><a href="#paiement">Paiement</a></li>
+      <li><a href="#commander">Commander</a></li>
+    </ul>
+    <p style="font-size:0.65rem;color:rgba(255,255,255,0.3);">
+      <a href="https://magicgame.store" style="color:var(--pink);text-decoration:none;">magicgame.store</a>
+    </p>
+    <p class="footer-copy">© 2026 Magic Game Store · Antananarivo, Madagascar · Tous droits réservés</p>
+  </div>
+</footer>
+
+<!-- MODAL UC -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <p style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);">PUBG Mobile — Unknown Cash</p>
+    <div class="modal-uc-display">
+      <span class="modal-uc-amount" id="modalAmount">660</span>
+      <span class="modal-uc-label">UC</span>
+    </div>
+    <p class="modal-price" id="modalPrice">41 000 Ar</p>
+    <div style="margin-bottom:1rem;">
+      <label class="form-label" for="modalPseudo">Pseudo PUBG Mobile</label>
+      <input class="form-input" type="text" id="modalPseudo" placeholder="Ex: SnipeKing_MG" oninput="refreshUCLink()">
+    </div>
+    <div style="margin-bottom:1.2rem;">
+      <label class="form-label" for="modalId">Player ID PUBG Mobile</label>
+      <input class="form-input" type="text" id="modalId" placeholder="Ex: 5123456789" inputmode="numeric" oninput="refreshUCLink()">
+    </div>
+    <a class="whatsapp-btn" id="whatsappLink" href="#" target="_blank">
+      <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Commander via WhatsApp
+    </a>
+    <p style="font-size:0.6rem;color:rgba(255,255,255,0.25);text-align:center;margin-top:1rem;letter-spacing:0.08em;">
+      Réponse garantie en moins de 5 minutes
+    </p>
+  </div>
+</div>
+
+<!-- MODAL ABONNEMENT -->
+<div class="modal-overlay" id="modalSub" onclick="closeSubModalOutside(event)">
+  <div class="modal-box" id="subModalBox" style="border-color:var(--pink);">
+    <button class="modal-close" onclick="closeSubModal()">✕</button>
+    <p style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);">PUBG Mobile — Abonnement</p>
+    <div class="modal-uc-display">
+      <span class="modal-uc-amount" id="subModalName" style="font-size:2rem;line-height:1.1;">Prime — 1 mois</span>
+    </div>
+    <p class="modal-price" id="subModalPrice">6 000 Ar</p>
+    <p style="font-size:0.65rem;color:rgba(255,255,255,0.4);margin-bottom:1.5rem;letter-spacing:0.05em;" id="subModalBonus">60 UC à réclamer + 3 UC/jour</p>
+    <div style="margin-bottom:1rem;">
+      <label class="form-label" for="subModalPseudo">Pseudo PUBG Mobile</label>
+      <input class="form-input" type="text" id="subModalPseudo" placeholder="Ex: SnipeKing_MG" oninput="refreshSubLink()">
+    </div>
+    <div style="margin-bottom:1.2rem;">
+      <label class="form-label" for="subModalId">Player ID PUBG Mobile</label>
+      <input class="form-input" type="text" id="subModalId" placeholder="Ex: 5123456789" inputmode="numeric" oninput="refreshSubLink()">
+    </div>
+    <a class="whatsapp-btn" id="subWhatsappLink" href="#" target="_blank">
+      <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Commander via WhatsApp
+    </a>
+    <p style="font-size:0.6rem;color:rgba(255,255,255,0.25);text-align:center;margin-top:1rem;letter-spacing:0.08em;">
+      Réponse garantie en moins de 5 minutes
+    </p>
+  </div>
+</div>
+
+<script>
+  const WA = '261377519833';
+
+  // UC MODAL
+  function openModal(uc, price, key) {
+    const ucData = {
+      '30': '30', '60': '60', '325': '325',
+      '660': '660', '1800': '1 800', '16200': '16 200'
+    };
+    document.getElementById('modal').classList.add('active');
+    document.getElementById('modalAmount').textContent = ucData[key] || uc.replace(' UC','');
+    document.getElementById('modalPrice').textContent = price;
+    document.getElementById('modalPseudo').value = '';
+    document.getElementById('modalId').value = '';
+    refreshUCLink();
+    setTimeout(() => document.getElementById('modalPseudo').focus(), 300);
+  }
+
+  function refreshUCLink() {
+    const pseudo = document.getElementById('modalPseudo').value || '[pseudo]';
+    const pid = document.getElementById('modalId').value || '[ID]';
+    const amt = document.getElementById('modalAmount').textContent + ' UC';
+    const price = document.getElementById('modalPrice').textContent;
+    const msg = encodeURIComponent(
+      `Bonjour PINK Gaming Store !\n\n▸ Pack : ${amt}\n▸ Prix : ${price}\n▸ Pseudo PUBG : ${pseudo}\n▸ Player ID : ${pid}`
+    );
+    document.getElementById('whatsappLink').href = `https://wa.me/${WA}?text=${msg}`;
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+  }
+
+  function closeModalOutside(e) {
+    if (e.target.id === 'modal') closeModal();
+  }
+
+  // ABONNEMENT MODAL
+  function openSubModal(name, price, bonus, isPlus) {
+    document.getElementById('modalSub').classList.add('active');
+    document.getElementById('subModalName').textContent = name;
+    document.getElementById('subModalPrice').textContent = price;
+    document.getElementById('subModalBonus').textContent = bonus;
+    document.getElementById('subModalPseudo').value = '';
+    document.getElementById('subModalId').value = '';
+    // Gold theme for Prime Plus
+    const box = document.getElementById('subModalBox');
+    if (isPlus) {
+      box.classList.add('gold-theme');
+      box.style.borderColor = '';
+    } else {
+      box.classList.remove('gold-theme');
+      box.style.borderColor = 'var(--pink)';
+    }
+    refreshSubLink();
+    setTimeout(() => document.getElementById('subModalPseudo').focus(), 300);
+  }
+
+  function refreshSubLink() {
+    const pseudo = document.getElementById('subModalPseudo').value || '[pseudo]';
+    const pid = document.getElementById('subModalId').value || '[ID]';
+    const name = document.getElementById('subModalName').textContent;
+    const price = document.getElementById('subModalPrice').textContent;
+    const bonus = document.getElementById('subModalBonus').textContent;
+    const msg = encodeURIComponent(
+      `Bonjour PINK Gaming Store !\n\n▸ Abonnement : ${name}\n▸ Prix : ${price}\n▸ Inclus : ${bonus}\n▸ Pseudo PUBG : ${pseudo}\n▸ Player ID : ${pid}`
+    );
+    document.getElementById('subWhatsappLink').href = `https://wa.me/${WA}?text=${msg}`;
+  }
+
+  function closeSubModal() {
+    document.getElementById('modalSub').classList.remove('active');
+  }
+
+  function closeSubModalOutside(e) {
+    if (e.target.id === 'modalSub') closeSubModal();
+  }
+
+  // ORDER FORM
+  function submitOrder() {
+    const pack = document.getElementById('pack').value;
+    const id = document.getElementById('pubgid').value.trim();
+    const pseudo = document.getElementById('whatsapp').value.trim();
+
+    if (!pack || !id || !pseudo) {
+      alert('Veuillez remplir tous les champs avant de commander.');
+      return;
+    }
+
+    const packLabels = {
+      '30uc': '30 UC — 3 000 Ar',
+      '60uc': '60 UC — 5 000 Ar',
+      '325uc': '325 UC — 21 000 Ar',
+      '660uc': '660 UC — 41 000 Ar',
+      '1800uc': '1 800 UC — 100 000 Ar',
+      '16200uc': '16 200 UC — 793 000 Ar',
+      'prime1m': 'Prime 1 mois — 6 000 Ar',
+      'prime3m': 'Prime 3 mois — 17 000 Ar',
+      'prime6m': 'Prime 6 mois — 28 000 Ar',
+      'prime12m': 'Prime 12 mois — 50 000 Ar',
+      'plus1m': 'Prime Plus 1 mois — 42 000 Ar',
+      'plus3m': 'Prime Plus 3 mois — 188 000 Ar',
+      'plus6m': 'Prime Plus 6 mois — 229 000 Ar',
+      'plus12m': 'Prime Plus 12 mois — 448 000 Ar',
+    };
+
+    const msg = encodeURIComponent(
+      `Bonjour PINK Gaming Store !\n\nNouvelle commande :\n▸ Pack : ${packLabels[pack]}\n▸ Pseudo PUBG : ${pseudo}\n▸ Player ID : ${id}`
+    );
+    window.open(`https://wa.me/${WA}?text=${msg}`, '_blank');
+  }
+
+  // SCROLL ANIMATIONS
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // NAV MOBILE
+  function toggleMobileMenu() {
+    const links = document.querySelector('.nav-links');
+    links.classList.toggle('active');
+    const spans = document.querySelectorAll('.nav-toggle span');
+    if (links.classList.contains('active')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(4px, -4px)';
+    } else {
+      spans[0].style.transform = 'none';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = 'none';
+    }
+  }
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('active');
+      const spans = document.querySelectorAll('.nav-toggle span');
+      spans[0].style.transform = 'none';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = 'none';
+    });
+  });
+
+  // HOLDING class for Prime Plus cards (touch + mouse)
+  document.querySelectorAll('.uc-card.prime-plus').forEach(card => {
+    const addHold = () => card.classList.add('holding');
+    const removeHold = () => card.classList.remove('holding');
+    card.addEventListener('mousedown', addHold);
+    card.addEventListener('touchstart', addHold, { passive: true });
+    card.addEventListener('mouseup', removeHold);
+    card.addEventListener('mouseleave', removeHold);
+    card.addEventListener('touchend', removeHold);
+    card.addEventListener('touchcancel', removeHold);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeSubModal(); }
+  });
+</script>
+</body>
+</html>
