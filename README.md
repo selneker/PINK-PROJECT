@@ -28,4 +28,4 @@
 
 1. **Cloner le projet** :
    ```bash
-   git clone [https://github.com/votre-compte/pink-gaming.git](https://github.com/votre-compte/pink-gaming.git)
+   git clone [https://github.com/selneker/pink-gaming.git](https://github.com/selneker/pink-gaming.git)
